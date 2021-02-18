@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:joystick_pro/src/joystick_state.dart';
 import 'package:rx_notifier/rx_notifier.dart';
+
+import 'package:joystick_pro/src/joystick_state.dart';
 
 import 'joystick_store.dart';
 
 class JoystickWidget extends StatefulWidget {
   final double size;
   final double opacity;
+  final Color color;
   final void Function(JoystickState) onUpdate;
-  const JoystickWidget({Key key, this.size = 100, this.onUpdate, this.opacity}) : super(key: key);
+  const JoystickWidget({Key key, this.size, this.opacity, this.color, this.onUpdate}) : super(key: key);
 
   @override
   _JoystickWidgetState createState() => _JoystickWidgetState();
@@ -64,7 +66,7 @@ class _JoystickWidgetState extends State<JoystickWidget> {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(width: 1, color: Colors.grey),
+            border: Border.all(width: 1, color: widget.color ?? Colors.grey),
           ),
           child: RxBuilder(builder: (context) {
             return Stack(
@@ -76,7 +78,7 @@ class _JoystickWidgetState extends State<JoystickWidget> {
                   child: Container(
                     width: circleSize,
                     height: circleSize,
-                    decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(50)),
+                    decoration: BoxDecoration(color: widget.color ?? Colors.grey, borderRadius: BorderRadius.circular(50)),
                   ),
                 ),
               ],
