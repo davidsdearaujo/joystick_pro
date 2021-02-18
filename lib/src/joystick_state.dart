@@ -15,8 +15,8 @@ class JoystickState {
   bool get isBottom => y > 0.5;
   double get x => offset?.dx ?? 0;
   double get y => offset?.dy ?? 0;
-  double get dx => xInterpolation.linear(x, begin: -1, end: 1);
-  double get dy => yInterpolation.linear(y, begin: -1, end: 1);
+  double get dx => x == 0 ? 0 : xInterpolation.linear(x, begin: -1, end: 1);
+  double get dy => y == 0 ? 0 : yInterpolation.linear(y, begin: -1, end: 1);
 
   factory JoystickState.empty([double size]) => JoystickState(x: 0, y: 0, size: size ?? 0);
   factory JoystickState.fromOffset(Offset offset, {double size = 0}) => JoystickState(x: offset.dx, y: offset.dy, size: size);
