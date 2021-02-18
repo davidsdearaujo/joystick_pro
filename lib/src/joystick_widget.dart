@@ -15,12 +15,13 @@ class JoystickWidget extends StatefulWidget {
 }
 
 class _JoystickWidgetState extends State<JoystickWidget> {
-  final store = JoystickStore();
+  JoystickStore store;
   double get circleSize => widget.size * 0.35;
 
   @override
   void initState() {
     super.initState();
+    store = JoystickStore(widget.size);
     if (widget.onUpdate != null) store.observe(onState: widget.onUpdate);
   }
 
@@ -41,26 +42,22 @@ class _JoystickWidgetState extends State<JoystickWidget> {
           double y = details.localPosition.dy - widget.size / 2;
           final isExternalOfCircunference = x * x + y * y > r * r;
           while (isExternalOfCircunference) {
-            if (x > 0) x--;
-            if (x < 0) x++;
-            if (y > 0) y--;
-            if (y < 0) y++;
+            x = (x > 0) ? x - 1 : x + 1;
+            y = (y > 0) ? y - 1 : y + 1;
           }
-          store.update(store.state.copyWith(x: x, y: y));
+          store.update(JoystickState(x: x, y: y, size: widget.size));
         },
         onPanUpdate: (details) {
           final r = widget.size / 2;
           double x = details.localPosition.dx - widget.size / 2;
           double y = details.localPosition.dy - widget.size / 2;
           while (x * x + y * y > r * r) {
-            if (x > 0) x--;
-            if (x < 0) x++;
-            if (y > 0) y--;
-            if (y < 0) y++;
+            x = (x > 0) ? x - 1 : x + 1;
+            y = (y > 0) ? y - 1 : y + 1;
           }
-          store.update(store.state.copyWith(x: x, y: y));
+          store.update(JoystickState(x: x, y: y, size: widget.size));
         },
-        onPanEnd: (details) => store.update(JoystickState.empty()),
+        onPanEnd: (details) => store.update(JoystickState.empty(widget.size)),
         child: Container(
           width: widget.size,
           height: widget.size,

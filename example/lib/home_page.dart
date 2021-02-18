@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Center(
             child: JoystickWidget(
+              size: 100,
               onUpdate: (state) {
                 setState(() => this.state = state);
               },
@@ -29,6 +30,9 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text("x: ${state.x}"),
                 Text("y: ${state.y}"),
+                Text("dx: ${state.dx}"),
+                Text("dy: ${state.dy}"),
+                Text("size: ${state.size}"),
                 Text("isTop: ${state.isTop}"),
                 Text("isLeft: ${state.isLeft}"),
                 Text("isRight: ${state.isRight}"),
