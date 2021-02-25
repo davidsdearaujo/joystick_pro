@@ -42,8 +42,8 @@ class _JoystickWidgetState extends State<JoystickWidget> {
           final r = widget.size / 2;
           double x = details.localPosition.dx - widget.size / 2;
           double y = details.localPosition.dy - widget.size / 2;
-          final isExternalOfCircunference = x * x + y * y > r * r;
-          while (isExternalOfCircunference) {
+          while (x * x + y * y > r * r) //x² + y² = r²
+          {
             x = (x > 0) ? x - 1 : x + 1;
             y = (y > 0) ? y - 1 : y + 1;
           }
@@ -53,7 +53,8 @@ class _JoystickWidgetState extends State<JoystickWidget> {
           final r = widget.size / 2;
           double x = details.localPosition.dx - widget.size / 2;
           double y = details.localPosition.dy - widget.size / 2;
-          while (x * x + y * y > r * r) {
+          while (x * x + y * y > r * r) //x² + y² = r²
+          {
             x = (x > 0) ? x - 1 : x + 1;
             y = (y > 0) ? y - 1 : y + 1;
           }
